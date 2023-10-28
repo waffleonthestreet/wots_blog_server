@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wots.blog.server.mapper.AdminMapper">
+
+    <select id="SelectAllAccounts" resultType="wots.blog.server.domain.Account">
+        SELECT
+            *
+        FROM
+            account;
+    </select>
+
+    <insert id="insertAccount" parameterType="wots.blog.server.domain.Account">
+        INSERT INTO account (
+                              user_id
+                            , user_pw
+                            , user_name
+        )
+        VALUES (
+                   #{userId}
+               , #{userPw}
+               , #{userName}
+               );
+    </insert>
+
+    <select id="selectAccountByIdPw" resultType="wots.blog.server.domain.Account">
+        SELECT
+            *
+        FROM
+            account
+        WHERE
+            user_id = #{userId}
+          AND user_pw = #{userPw};
+    </select>
+
+    <select id="selectAccountByUserNo" resultType="wots.blog.server.domain.Account">
+        SELECT
+            *
+        FROM
+            account
+        WHERE
+            user_no = #{userNo};
+    </select>
+
+    <insert id="insertArticle" parameterType="wots.blog.server.domain.Article">
+        INSERT INTO article (
+            article_title
+            , article_contents
+            , user_no
+            , category_no
+            , create_dt
+            , edit_dt
+            , view_cnt
+            , thumbnail_url
+        ) VALUES (
+            #{articleTitle}
+            , #{articleContents}
+            , #{userNo}
+            , #{categoryNo}
+            , NOW()
+            , NOW()
+            , 0
+            , null
+        )
+    </insert>
+
+    <update id="updateArticle" parameterType="wots.blog.server.domain.Article">
+        UPDATE
+            article
+        SET
+            article_title = #{articleTitle}
+            , article_contents = #{articleContents}
+            , category_no = #{categoryNo}
+            , thumbnail_url = #{thumbnailUrl}
+            , edit_dt = now()
+        WHERE
+            article_no = #{articleNo}
+    </update>
+
+    <select id="selectArticle" resultType="wots.blog.server.domain.Article">
+        SELECT
+            *
+        FROM
+            article
+        WHERE
+            article_no = #{articleNo};
+    </select>
+
+    <select id="selectArticlesByPage_Data" resultType="wots.blog.server.domain.Article">
+        SELECT
+            *
+        FROM
+            article
+        <if test="keyword != null and keyword != ''">
+        WHERE
+            article_title like CONCAT('%', #{keyword}, '%')
+        </if>
+        ORDER BY
+            create_dt DESC
+        OFFSET
+            #{page}
+        LIMIT
+            #{pageSize}
+    </select>
+
+    <select id="selectArticlesByPage_Count" resultType="int">
+        SELECT
+            COUNT(*) AS maxCnt
+        FROM
+            article
+        <if test="keyword != null and keyword != ''">
+            WHERE
+            article_title like CONCAT('%', #{keyword}, '%')
+        </if>
+    </select>
+</mapper>
