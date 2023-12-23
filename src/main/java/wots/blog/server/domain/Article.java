@@ -13,9 +13,15 @@ public class Article {
 
     public Long categoryNo;
 
+    public Long userNo;
+
     public String articleTitle;
 
     public String articleContents;
+
+    public int viewCnt;
+
+    public String thumbnailUrl;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")

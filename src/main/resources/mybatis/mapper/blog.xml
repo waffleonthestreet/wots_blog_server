@@ -42,31 +42,55 @@
 
     <select id="selectArticleByArticleNo" resultType="wots.blog.server.domain.Article">
         SELECT
-            *
+            a.article_no
+            , a.article_title
+            , a.article_contents
+            , a.user_no
+            , a.category_no
+            , a.view_cnt
+            , a.thumbnail_url
+            , a.create_dt
+            , a.edit_dt
         FROM
-            article
+            article a
         WHERE
-            article_no = #{articleNo}
+            a.article_no = #{articleNo}
     </select>
 
     <select id="selectTopPopularArticles" resultType="wots.blog.server.domain.Article">
         SELECT
-            *
+            a.article_no
+             , a.article_title
+             , a.article_contents
+             , a.user_no
+             , a.category_no
+             , a.view_cnt
+             , a.thumbnail_url
+             , a.create_dt
+             , a.edit_dt
         FROM
-            article
+            article a
         ORDER BY
-            view_cnt DESC
+            a.view_cnt DESC
         LIMIT
             #{top}
     </select>
 
     <select id="selectTopLatestArticles" resultType="wots.blog.server.domain.Article">
         SELECT
-            *
+            a.article_no
+             , a.article_title
+             , a.article_contents
+             , a.user_no
+             , a.category_no
+             , a.view_cnt
+             , a.thumbnail_url
+             , a.create_dt
+             , a.edit_dt
         FROM
-            article
+            article a
         ORDER BY
-            create_dt DESC
+            a.create_dt DESC
         LIMIT
             #{top}
     </select>
@@ -77,16 +101,24 @@
             resultType="wots.blog.server.domain.Article"
     >
         SELECT
-            *
+            a.article_no
+            , a.article_title
+            , LEFT(a.article_contents, 100) AS article_contents
+            , a.user_no
+            , a.category_no
+            , a.view_cnt
+            , a.thumbnail_url
+            , a.create_dt
+            , a.edit_dt
         FROM
-            article
+            article a
         WHERE
-            category_no = #{categoryNo}
+            a.category_no = #{categoryNo}
         <if test="keyword != null and keyword != ''">
-            AND article_title like CONCAT('%', #{keyword}, '%')
+            AND a.article_title like CONCAT('%', #{keyword}, '%')
         </if>
         ORDER BY
-            create_dt DESC
+            a.create_dt DESC
         OFFSET
             #{page}
         LIMIT

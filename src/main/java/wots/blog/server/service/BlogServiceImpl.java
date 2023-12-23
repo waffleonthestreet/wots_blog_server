@@ -41,12 +41,13 @@ public class BlogServiceImpl implements BlogService {
     public List<Article> selectTopLatestArticles(int top) {
         BlogMapper blogMapper = sqlSession.getMapper(BlogMapper.class);
         List<Article> articles = blogMapper.selectTopLatestArticles(top);
-        return null;
+        return articles;
     }
 
     @Override
     public PagingResponse<Article> selectArticlesByCategoryPage(ArticleSearchRequest articleSearchRequest) {
         BlogMapper blogMapper = sqlSession.getMapper(BlogMapper.class);
+        articleSearchRequest.setPage((articleSearchRequest.getPage() - 1) * articleSearchRequest.getPageSize());
 
         PagingResponse<Article> results = new PagingResponse<Article>();
         List<Article> articles = blogMapper.selectArticlesByCategoryPage_Data(articleSearchRequest);

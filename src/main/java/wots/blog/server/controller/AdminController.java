@@ -1,8 +1,11 @@
 package wots.blog.server.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import wots.blog.server.domain.Account;
 import wots.blog.server.domain.Article;
 import wots.blog.server.domain.dto.ArticleSearchRequest;
@@ -10,8 +13,11 @@ import wots.blog.server.domain.dto.LoginRequest;
 import wots.blog.server.domain.dto.common.PagingResponse;
 import wots.blog.server.service.AdminService;
 
+import java.io.IOException;
 import java.util.List;
 
+@Slf4j
+@CrossOrigin(origins = "http://localhost:5001")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -75,5 +81,10 @@ public class AdminController {
     public ResponseEntity<?> selectArticlesByPage(ArticleSearchRequest articleSearchRequest) {
         PagingResponse<Article> articles = adminService.selectArticlesByPage(articleSearchRequest);
         return ResponseEntity.ok(articles);
+    }
+
+    @PostMapping("/upload/file")
+    public ResponseEntity<?> uploadFile(@RequestParam("images") MultipartFile multipartFile) throws IOException {
+        return ResponseEntity.ok(adminService.upload(multipartFile));
     }
 }
