@@ -103,7 +103,7 @@
         SELECT
             a.article_no
             , a.article_title
-            , LEFT(a.article_contents, 100) AS article_contents
+            , LEFT(a.article_contents, 300) AS article_contents
             , a.user_no
             , a.category_no
             , a.view_cnt
