@@ -29,4 +29,6 @@ public interface AdminService {
     public PagingResponse<Article> selectArticlesByPage(ArticleSearchRequest articleSearchRequest);
 
     public String upload(MultipartFile multipartFile) throws IOException;
+
+    public void deleteArticle (Long articleNo);
 }

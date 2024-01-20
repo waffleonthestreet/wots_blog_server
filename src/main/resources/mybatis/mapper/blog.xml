@@ -55,6 +55,7 @@
             article a
         WHERE
             a.article_no = #{articleNo}
+            AND delete_yn = false
     </select>
 
     <select id="selectTopPopularArticles" resultType="wots.blog.server.domain.Article">
@@ -70,6 +71,8 @@
              , a.edit_dt
         FROM
             article a
+        WHERE
+            delete_yn = false
         ORDER BY
             a.view_cnt DESC
         LIMIT
@@ -89,6 +92,8 @@
              , a.edit_dt
         FROM
             article a
+        WHERE
+            delete_yn = false
         ORDER BY
             a.create_dt DESC
         LIMIT
@@ -114,6 +119,7 @@
             article a
         WHERE
             a.category_no = #{categoryNo}
+            AND delete_yn = false
         <if test="keyword != null and keyword != ''">
             AND a.article_title like CONCAT('%', #{keyword}, '%')
         </if>
@@ -135,6 +141,7 @@
             article
         WHERE
             category_no = #{categoryNo}
+            AND delete_yn = false
         <if test="keyword != null and keyword != ''">
             AND article_title LIKE CONCAT('%', #{keyword}, '%')
         </if>

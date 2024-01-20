@@ -87,4 +87,9 @@ public class AdminController {
     public ResponseEntity<?> uploadFile(@RequestParam("images") MultipartFile multipartFile) throws IOException {
         return ResponseEntity.ok(adminService.upload(multipartFile));
     }
+
+    @DeleteMapping("/article/{no}")
+    public void deleteArticle(@PathVariable("no") Long articleNo) {
+        adminService.deleteArticle(articleNo);
+    }
 }

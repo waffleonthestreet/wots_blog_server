@@ -106,4 +106,10 @@ public class AdminServiceImpl implements AdminService{
 
         return amazonS3.getUrl(bucket, s3FileName).toString();
     }
+
+    @Override
+    public void deleteArticle(Long articleNo) {
+        AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
+        adminMapper.deleteArticle(articleNo);
+    }
 }

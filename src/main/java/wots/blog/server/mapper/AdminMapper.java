@@ -25,4 +25,6 @@ public interface AdminMapper {
     public List<Article> selectArticlesByPage_Data(ArticleSearchRequest articleSearchRequest);
 
     public int selectArticlesByPage_Count(ArticleSearchRequest articleSearchRequest);
+
+    public void deleteArticle(Long articleNo);
 }
