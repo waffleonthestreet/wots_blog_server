@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-@CrossOrigin(origins = "http://localhost:5001")
+@CrossOrigin(origins = "http://3.216.180.186:5001/")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
