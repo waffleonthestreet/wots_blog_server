@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://3.216.180.186/")
+@CrossOrigin(origins = "http://blog.waffleonthestreet.com/")
 @RequestMapping("/blog")
 public class BlogController {
     @Autowired
