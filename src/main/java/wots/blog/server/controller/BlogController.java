@@ -24,6 +24,10 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
+    @GetMapping("/healthcheck")
+    public String healthcheck() {
+        return "OK";
+    }
     @GetMapping("/categories")
     @ResponseBody
     public ResponseEntity<?> selectAllCategories() {
